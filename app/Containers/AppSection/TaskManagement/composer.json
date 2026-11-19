@@ -1,0 +1,6 @@
+{
+    "name": "personal-task-manager/task-management",
+    "description": "Personal task management container",
+    "type": "apiato-container",
+    "require": {}
+}

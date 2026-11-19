@@ -1,0 +1,7 @@
+# Blade və Fetch API interfeysi
+
+Task səhifələri `TaskManagement/UI/WEB/Views/tasks` altında yerləşir. WEB controller yalnız Blade view qaytarır; CRUD API controller-lərə təkrarlanmır.
+
+`resources/js/task-manager.js` vahid Fetch wrapper yaradır. Hər API sorğusunda `Accept: application/json` və `Authorization: Bearer` başlığı var; JSON body-də Content-Type əlavə edilir. API base URL Blade controller-də `url('/v1/tasks')` ilə yaradılır; local serverdə bu `APP_URL` əsasında `http://127.0.0.1:8000/v1/tasks` olur. `layout.blade.php` həmçinin refresh/login/index/edit named route URL-lərini `window.taskManagerConfig`-ə ötürür; JavaScript-də host və WEB naviqasiya URL-si sabit yazılmayıb. `config/cors.php` fərqli WEB/API origin istifadə ediləndə yalnız `FRONTEND_URL` origin-inə icazə verir. 401 halında wrapper eyni-origin refresh endpoint-inə CSRF header-lə müraciət edir və əvvəlki sorğunu maksimum bir dəfə təkrar edir. Refresh alınmasa login səhifəsinə yönləndirir.
+
+Siyahı səhifəsi loading, boş siyahı, filter, delete confirmation və xəta vəziyyətlərini göstərir. Create/edit səhifəsi field-level 422 xətalarını render edir və submit müddətində düyməni deaktiv edir. İstifadəçi mətni `textContent` ilə DOM-a daxil edilir; etibarsız mətn üçün `innerHTML` istifadə edilmir. Access token yalnız `window.taskManagerConfig` vasitəsilə cari səhifə yaddaşındadır; localStorage/sessionStorage istifadə olunmur.
